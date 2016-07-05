@@ -16,16 +16,16 @@ dpkg --list \
     | xargs apt-get -y purge;
 
 # Delete Linux source
-dpkg --list \
-    | awk '{ print $2 }' \
-    | grep linux-source \
-    | xargs apt-get -y purge;
+# dpkg --list \
+#     | awk '{ print $2 }' \
+#     | grep linux-source \
+#     | xargs apt-get -y purge;
 
 # Delete development packages
-dpkg --list \
-    | awk '{ print $2 }' \
-    | grep -- '-dev$' \
-    | xargs apt-get -y purge;
+# dpkg --list \
+#     | awk '{ print $2 }' \
+#     | grep -- '-dev$' \
+#     | xargs apt-get -y purge;
 
 # Delete X11 libraries
 apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6;
