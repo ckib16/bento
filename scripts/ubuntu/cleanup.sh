@@ -1,10 +1,10 @@
 #!/bin/sh -eux
 
 # Delete all Linux headers
-dpkg --list \
-  | awk '{ print $2 }' \
-  | grep 'linux-headers' \
-  | xargs apt-get -y purge;
+# dpkg --list \
+#   | awk '{ print $2 }' \
+#   | grep 'linux-headers' \
+#   | xargs apt-get -y purge;
 
 # Remove specific Linux kernels, such as linux-image-3.11.0-15-generic but
 # keeps the current kernel and does not touch the virtual packages,
@@ -28,7 +28,7 @@ dpkg --list \
 #     | xargs apt-get -y purge;
 
 # Delete X11 libraries
-apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6;
+# apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6;
 
 # Delete obsolete networking
 apt-get -y purge ppp pppconfig pppoeconf;
