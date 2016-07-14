@@ -45,18 +45,16 @@
       "ssh_wait_timeout": "10000s",
       "type": "virtualbox-iso",
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "{{ user `memory` }}"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "{{ user `cpus` }}"
-        ]
+        ["modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"],
+        ["modifyvm", "{{.Name}}", "--vram", "{{ user `vram` }}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}"],
+        ["modifyvm", "{{.Name}}", "--cpuexecutioncap", "{{ user `cpuexecutioncap` }}"],
+        ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"],
+        ["modifyvm", "{{.Name}}", "--draganddrop", "bidirectional"],
+        ["modifyvm", "{{.Name}}", "--nictype1", "virtio"],
+        ["modifyvm", "{{.Name}}", "--ioapic", "on"],
+        ["modifyvm", "{{.Name}}", "--rtcuseutc", "on"],
+        ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
       ],
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{ user `template` }}"
@@ -217,6 +215,8 @@
   ],
   "post-processors": [
     {
+      "compression_level": 9,
+      "keep_input_artifact": false,
       "output": "builds/{{user `box_basename`}}.{{.Provider}}.box",
       "type": "vagrant"
     }
@@ -253,8 +253,9 @@
   "variables": {
     "box_basename": "ubuntu-16.04",
     "build_timestamp": "{{isotime \"20060102150405\"}}",
-    "cpus": "2",
-    "disk_size": "40960",
+    "cpus": "1",
+    "cpuexecutioncap": "75",
+    "disk_size": "61440",
     "git_revision": "__unknown_git_revision__",
     "headless": "true",
     "http_proxy": "{{env `http_proxy`}}",
@@ -270,6 +271,7 @@
     "no_proxy": "{{env `no_proxy`}}",
     "preseed_path": "ubuntu-15.10/preseed.cfg",
     "template": "ubuntu-16.04-amd64",
-    "version": "2.1.TIMESTAMP"
+    "version": "2.1.TIMESTAMP",
+    "vram": "128"
   }
 }
